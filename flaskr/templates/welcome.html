@@ -1,0 +1,18 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+    <div class="align-self-end" style="margin-top: 44%;">
+        <div class="content" style="padding: 10vmin;">
+            <p class="text-center text-light">Do you write any task, but don't have somethings write?</p>
+            <div class="d-flex justify-content-between">
+                <div class="me-5">
+                    <a href="{{url_for('root')}}" class="btn btn-outline-light" tabindex="-1" role="button" aria-disabled="true">My Tasks</a>
+                </div>
+                <div class="ms-5">
+                    <a href="" class="btn btn-outline-light" tabindex="-1" role="button" aria-disabled="true">Write Task</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

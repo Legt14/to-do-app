@@ -1,0 +1,37 @@
+{% extends 'index.html' %}
+
+{% block content %}
+    <div class="d-flex justify-content-center">
+        <div class="mt-3 content">
+            <div class="mb-2 text-light">
+                <h5 class="text-center">Register</h5>
+                <form method="POST" action="{{url_for('auth.register')}}">
+                    {{ form.csrf_token }}
+                    {{ form.first_name.label(class='form-label') }}
+                    {{ form.first_name(class="form-control", placeholder="First name") }}
+    
+                    {{ form.lastname.label(class='form-label') }}
+                    {{ form.lastname(class="form-control", placeholder="Lastname") }}
+    
+                    {{ form.username.label(class='form-label') }}
+                    {{ form.username(class="form-control", placeholder="Username") }}
+    
+                    {{ form.email.label(class='form-label') }}
+                    {{ form.email(class="form-control", placeholder="example@mail.com") }}
+    
+                    {{ form.password.label(class='form-label') }}
+                    {{ form.password(class="form-control", placeholder="Password") }}
+                    <br>
+                    <div class="row justify-content-evenly">
+                        <div class="col">
+                            <a href="{{url_for('auth.login')}}" class="btn btn-dark"  aria-disabled="true">Sign in</a>
+                        </div>
+                        <div class="col-auto">
+                            {{ form.register(class="btn btn-light") }}
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>    
+{% endblock %}

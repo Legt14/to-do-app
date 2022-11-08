@@ -1,0 +1,27 @@
+{% extends 'index.html' %}
+
+{% block content %}
+    <div class="d-flex justify-content-center" style="padding-top: 10%;">
+        <div class="content">
+            <div class="mb-2 text-light">
+                <h5 class="text-center">Task Creator</h5>
+                {{ form.title.label(class='form-label') }} 
+                <br>
+                {{ form.title(class="form-control", placeholder="Task Tittle") }}
+                <br>
+                {{ form.task.label(class='form-label') }}
+                <br>
+                {{ form.task(class="form-control", placeholder="Task Content")}}
+                <br>
+                <div class="row justify-content-evenly">
+                    <div class="col">
+                        <a href="{{url_for('root')}}" class="btn btn-outline-light" tabindex="-1" role="button" aria-disabled="true">Cancel</a>
+                    </div>
+                    <div class="col-auto">
+                        {{ form.create(class="btn btn-outline-light") }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+{% endblock %}
