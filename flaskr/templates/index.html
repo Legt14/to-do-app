@@ -1,4 +1,4 @@
-{% from 'macros/macro.html' import nav_menu, background %}
+{% from 'macros/macro.html' import nav_menu, nav_loged, background %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +13,11 @@
 <body>
     {{ background() }}
     <header>
-        {{ nav_menu() }}
+        {% if username %}
+            {{ nav_loged() }}
+        {% else %}
+            {{ nav_menu() }}
+        {% endif %}
     </header>
     <main>
         {% block content %}

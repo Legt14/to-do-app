@@ -4,6 +4,12 @@
     <div class="d-flex justify-content-center" style="padding-top: 10%;">
         <div class="content">
             <div class="mb-2 text-light">
+                {% for messages in get_flashed_messages() %}
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        {{messages}}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
                 <h5 class="text-center">Login Task</h5>
                 <form  method="POST" action="{{url_for('auth.login')}}">
                     {{ form.csrf_token }}
@@ -13,14 +19,14 @@
                     <br>
                     {{ form.password.label(class='form-label') }}
                     <br>
-                    {{ form.password(class="form-control", placeholder="Password")}}
+                    {{ form.password(class="form-control", placeholder="Password") }}
                     <br>
                     <div class="row justify-content-center">
                         <div class="col">
                             <a href="{{url_for('auth.register')}}" class="btn btn-dark" tabindex="-1" role="button" aria-disabled="true">Register</a>
                         </div>
                         <div class="col-auto">
-                            {{ form.sign_in(class="btn btn-light")}}
+                            {{ form.sign_in(class="btn btn-light") }}
                         </div>
                     </div>
                 </form>

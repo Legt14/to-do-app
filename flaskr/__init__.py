@@ -4,15 +4,17 @@ from flask_login import LoginManager
 from .config import Config
 from .auth import bp
 from .crud import get_user_tasks
+from .models import UserModel
+
 
 
 login_manager = LoginManager()
-login_manager.login_views = 'auth.login'
+login_manager.blueprint_login_views = {'login_view': 'auth.login'}
 
 
 @login_manager.user_loader
 def load_user(user_id):
-    return get_user_tasks(user_id)
+    return UserModel.query(user_id)
 
 
 def create_app():    

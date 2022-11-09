@@ -1,0 +1,8 @@
+{% extends 'index.html' %}
+
+{% block content%}
+    <div class="error">
+        <img src="{{url_for('static', filename='img/401.svg')}}" alt="Unauthenticated user">
+        <h3>Unauthenticated user</h3>
+    </div>
+{% endblock %}

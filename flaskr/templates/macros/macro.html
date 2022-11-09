@@ -5,16 +5,24 @@
   </button>
   <ul class="dropdown-menu dropdown-menu-dark">
     <li><a class="dropdown-item" href="{{url_for('root')}}">Home</a></li>
-    {% if user %}
-    <li><a class="dropdown-item" href="#">Profile</a></li>
-    <li><a class="dropdown-item" href="#">Create Task</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><a class="dropdown-item" href="">Loguot</a></li>
-    {% else %}
     <li><hr class="dropdown-divider"></li>
     <li><a class="dropdown-item" href="{{url_for('auth.login')}}">Sign in</a></li>
     <li><a class="dropdown-item" href="{{url_for('auth.register')}}">Register</a></li>
-    {% endif %}
+  </ul>
+</div>
+{% endmacro%}
+
+
+{% macro nav_loged() %}
+<div class="dropdown m-3">
+  <button class="btn btn-outline-dark dropdown-toggle rounded-5" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+    +
+  </button>
+  <ul class="dropdown-menu dropdown-menu-dark">
+    <li><a class="dropdown-item" href="{{url_for('root')}}">Home</a></li>
+    <li><a class="dropdown-item" href="#">Create Task</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><a class="dropdown-item" href="">Loguot</a></li>
   </ul>
 </div>
 {% endmacro%}
