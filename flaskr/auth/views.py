@@ -1,8 +1,9 @@
 from flask import render_template, session, redirect, url_for, flash
-from flask_login import login_user
+from flask_login import login_user, login_required, logout_user
+from werkzeug.security import generate_password_hash, check_password_hash
 
 from flaskr.forms import Login, Register
-from flaskr.crud import get_user
+from flaskr.crud import get_user, get_emial, user_register
 from flaskr.models import UserData, UserModel
 
 from .bp import auth
@@ -25,13 +26,13 @@ def login():
         if user_doc.to_dict() is not None:
             user_password = user_doc.to_dict()['password']
 
-            if user_password == password:
+            if check_password_hash(user_password, password):
                 user_data = UserData(username, password)
                 user = UserModel(user_data)
 
                 login_user(user)
 
-                return redirect(url_for('root'))
+                return redirect(url_for('welcome'))
 
             else:
                 flash('Password incorrect')
@@ -46,17 +47,40 @@ def login():
 @auth.route('/register', methods=['GET', 'POST'])
 def register():
     register = Register()
-    register_session = session.get('register')
     context = {
         'form': register,
-        'register': register_session
     }
     
+    username = register.username.data
+    email = register.email.data
+    password = register.password.data
+    
     if register.validate_on_submit():
-        register_session = register.data #data is return data input
-        session['register'] = register_session
+        if get_user(username) or get_emial(email) is None:
+            hash_pwd = generate_password_hash(password)
+            data = {
+                'username': username,
+                'email': email,
+                'password': hash_pwd
+            }
 
-        return redirect(url_for('root'))
+            user_data = UserData(username, hash_pwd)
+            user = UserModel(user_data)
+            user_register(username, data)
+            login_user(user)
+            return redirect(url_for('welcome'))
+
+        else:
+            flash('The Username or Email already exist'.format(username))
+
 
     return render_template('register.html', **context)
 
+
+@auth.route('/logout')
+@login_required
+def logout():
+    flash('See you later')
+    logout_user()
+
+    return redirect(url_for('auth.login'))

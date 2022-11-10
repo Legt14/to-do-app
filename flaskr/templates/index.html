@@ -13,11 +13,7 @@
 <body>
     {{ background() }}
     <header>
-        {% if username %}
-            {{ nav_loged() }}
-        {% else %}
-            {{ nav_menu() }}
-        {% endif %}
+        {{ nav_menu(username) }}
     </header>
     <main>
         {% block content %}

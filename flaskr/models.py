@@ -3,6 +3,7 @@ from flask_login import UserMixin
 
 from .crud import get_user
 
+
 class UserData:
     def __init__(self, username, password):
         self.username = username
@@ -28,10 +29,5 @@ class UserModel(UserMixin):
         return UserModel(user_data)
 
 
-    # def set_password(self, password):
-    #     self.password = generate_password_hash(password)
-
-
-    #def check_password(self, password):
-    #    return check_password_hash(self.password, password)
-            
+class TaskModel:
+    pass
