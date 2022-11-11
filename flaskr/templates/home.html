@@ -3,12 +3,15 @@
 {% block content %}
     
 <div class="row p-5">
-    {% for record in task%}
+    {% for record in task %}
         <div class="col-auto mt-2">
             <div class="card text-bg-dark " style="max-width: 18rem; --bs-bg-opacity: .89;">
-                <div class="card-header">{{ record.title }}</div>
+                <div class="card-header">{{ record.to_dict().title }}</div>
                 <div class="card-body">
-                <p class="card-text">{{ record.description }}</p>
+                <p class="card-text">{{ record.to_dict().description }}</p>
+                </div>
+                <div class="card-footer">
+                    <a class="btn btn-outline-light" href="{{url_for('delete', task_id=record.id)}}">delete</a
                 </div>
             </div>
         </div>

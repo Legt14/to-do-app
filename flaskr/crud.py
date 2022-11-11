@@ -7,15 +7,25 @@ def get_user(user_id):
 
 def get_user_tasks(user_id):
     doc_ref = db.collection('user').document(user_id).collection('tasks')
+    #ref = db.collection('user').document(user_id).collection('tasks').get()
     doc = doc_ref.stream()
-    tasks = [record.to_dict() for record in doc]
     
-    return tasks
+    return doc
 
 
 def task_creator(user_id, data):
 
     return db.collection('user').document(user_id).collection('tasks').document().set(data)
+
+
+def put_task(user_id, task_id, data):
+
+    return db.collection('user').document(user_id).collection('tasks').document(task_id).set(data)
+
+
+def del_task(user_id, task_id):
+    doc_ref = db.collection('user').document(user_id).collection("tasks").document(task_id)
+    doc_ref.delete()
 
 
 def get_emial(email):

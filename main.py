@@ -3,20 +3,40 @@ from flask_login import login_required, current_user
 
 from flaskr import create_app
 from flaskr.forms import CreateTask, Register, Login
-from flaskr.crud import get_user, get_user_tasks, task_creator
+from flaskr.crud import get_user, get_user_tasks, task_creator, del_task
 
 app = create_app()
 
 
-#2 Buttons for create task or view all task 
+@app.errorhandler(404)
+def not_found(error):
+    context = {
+        'username': current_user.id
+    }
+    return render_template('error/404.html', error=error, **context)
+
+
+@app.errorhandler(401)
+def not_found(error):
+    return render_template('error/401.html', error=error)
+
+
+@app.errorhandler(500)
+def not_found(error):
+    context = {
+        'username': current_user.id
+    }
+    return render_template('error/500.html', error=error, **context)
+
+
 @app.route('/', methods=['GET'])
 def root(): 
     if current_user.is_authenticated:
         user = current_user.id
-        tasks = get_user_tasks(user)
+        doc = get_user_tasks(user)
         context = {
             'username': user,
-            'task': tasks
+            'task': get_user_tasks(user)
         }
         return render_template('home.html', **context)
     else:
@@ -60,15 +80,12 @@ def create_task():
     return render_template('create_task.html', **context)
 
 
-@app.route('/<task_id>', methods=['GET', 'POST'])
+@app.route('/delete/<task_id>', methods=['GET','POST'])
 @login_required
-def tasks_id(task_id):
+def delete(task_id):
     user = current_user.id
-    context = {
-        'username': user,
-        'task_id': task_id,
-    }
-    return render_template('single_task.html', **context)
+    del_task(user, task_id)
+    return redirect(url_for('root'))
 
 
 
